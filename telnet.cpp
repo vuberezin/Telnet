@@ -56,15 +56,19 @@ void Telnet::execute(int timeout){
 //---------------------------------------------------------------------------------------------------------------------
 
         } else if (bufChar[0] == 255) {
-        s = recv(sock , bufChar + 1 , 2 , 0);
-
-        if (s == 0){
+         
+        int r = recv(sock , bufChar + 1 , 2 , 0);
+        if (r < 0) {
+         perror("Error reading from socket");
+         return;
+        }
+        if (r == 0){
             return;
         }
 
         for (i = 0; i < 3; i++) {
 
-        if (bufChar[i] == 253 || bufChar[i] == 254) {
+        if (bufChar[i] == 253 || bufChar[i] == 251) {
             bufChar[i] = 252;
         }
         }  
