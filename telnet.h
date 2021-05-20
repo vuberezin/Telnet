@@ -42,7 +42,6 @@ using namespace std;
         int timeout;
         int n = -1;
         int i = 0;
-        int s;
 
  };
  #endif // TELNET_H
